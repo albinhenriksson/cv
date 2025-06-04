@@ -1,6 +1,6 @@
 # Albin A. Henriksson
 
-**Location:** Malmö, Sweden**Phone:** (+46) 76-937 63 73**Email:** [albin@ahenriksson.com](mailto:albin@ahenriksson.com)
+**Location:** Malmö, Sweden **Phone:** (+46) 76-937 63 73 **Email:** [albin@ahenriksson.com](mailto:albin@ahenriksson.com)
 
 ---
 
@@ -18,7 +18,7 @@ I excel at understanding complex systems holistically, identifying areas for opt
 
 ### IT Technician / Systems Administrator
 
-**Malmö stad** *(Current position)**Public sector IT department.*
+**Malmö stad** *(Current position) **Public sector IT department.*
 
 - Supporting and maintaining IT infrastructure in a municipal environment
 - Managing user accounts, endpoints, networks, and services across offices
@@ -28,7 +28,7 @@ I excel at understanding complex systems holistically, identifying areas for opt
 
 ### IT Systems Specialist
 
-**STORViX AB** *(Oct 2021 – Jun 2022)**STORViX builds data storage hardware and develops a proprietary software stack and a UNIX-based OS.*
+**STORViX AB** *(Oct 2021 – Jun 2022) **STORViX builds data storage hardware and develops a proprietary software stack and a UNIX-based OS.*
 
 - Solutions engineering, infrastructure design and implementation
 - Advanced networking, SANs, network monitoring
@@ -38,7 +38,7 @@ I excel at understanding complex systems holistically, identifying areas for opt
 
 ### Sysadmin, DevOps & Cybersecurity Engineer
 
-**Timetjek AB** *(Oct 2020 – Jun 2021)**HRMS company.*
+**Timetjek AB** *(Oct 2020 – Jun 2021) **HRMS company.*
 
 - Redesigned IT infrastructure: migrated from a monolithic Windows server to a secure, containerized Linux/BSD VM architecture
 - Implemented CI/CD workflows to streamline deployments
