@@ -1,0 +1,533 @@
+%-------------------------------------------------------------------------------
+%	The MIT License (MIT)
+%
+%	Copyright (c) 2015 Jan Küster
+%
+%	Permission is hereby granted, free of charge, to any person obtaining a copy
+%	of this software and associated documentation files (the "Software"), to deal
+%	in the Software without restriction, including without limitation the rights
+%	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+%	copies of the Software, and to permit persons to whom the Software is
+%	furnished to do so, subject to the following conditions:
+%
+%	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+%	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+%	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+%	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+%	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+%	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+%	THE SOFTWARE.
+%-------------------------------------------------------------------------------
+
+%============================================================================%
+%	DOCUMENT DEFINITION
+%============================================================================%
+
+% We use article class because we want to fully customize the page and dont use a CV template.
+\documentclass[10pt,A4]{article}
+
+
+%----------------------------------------------------------------------------------------
+%	ENCODING
+%----------------------------------------------------------------------------------------
+
+%we use utf8 since we want to build from any machine
+\usepackage[utf8]{inputenc}
+
+%----------------------------------------------------------------------------------------
+%	LOGIC
+%----------------------------------------------------------------------------------------
+
+% provides \isempty test
+\usepackage{xifthen}
+
+%----------------------------------------------------------------------------------------
+%	FONT
+%----------------------------------------------------------------------------------------
+
+% some tex-live fonts - choose your own
+
+%\usepackage[defaultsans]{droidsans}
+%\usepackage[default]{comfortaa}
+%\usepackage{cmbright}
+%\usepackage[default]{raleway}
+%\usepackage{fetamont}
+\usepackage[default]{gillius}
+%\usepackage[light,math]{iwona}
+%\usepackage[thin]{roboto}
+
+% set font default
+\renewcommand*\familydefault{\sfdefault}
+\usepackage[T1]{fontenc}
+
+% more font size definitions
+\usepackage{moresize}
+
+%\usepackage{fontawesome}
+\usepackage{fontawesome5}
+
+\usepackage{hyperref}
+
+% Datum enligt ISO 8601
+% https://sv.wikipedia.org/wiki/ISO_8601
+\usepackage[yyyymmdd]{datetime}
+\renewcommand{\dateseparator}{--}
+
+%----------------------------------------------------------------------------------------
+%	PAGE LAYOUT  DEFINITIONS
+%----------------------------------------------------------------------------------------
+
+%debug page outer frames
+%\usepackage{showframe}
+
+
+%define page styles using geometry
+\usepackage[a4paper]{geometry}
+
+% for example, change the margins to 2 inches all round
+\geometry{top=1cm, bottom=-.6cm, left=0.4cm, right=1cm}
+
+
+%less space between header and content
+\setlength{\headheight}{-5pt}
+
+
+%customize entries left, center and right
+%\lhead{}
+%\chead{ \small{Jan Küster  $\cdot$ Consultant and Software Engineer $\cdot$  Bremen, Germany  $\cdot$  \textcolor{sectcol}{\textbf{albin@ahenriksson.com}}  $\cdot$ +49 176 313 *** **}}
+%\rhead{}
+
+
+%indentation is zero
+\setlength{\parindent}{0mm}
+
+%----------------------------------------------------------------------------------------
+%	TABLE /ARRAY DEFINITIONS
+%----------------------------------------------------------------------------------------
+
+%for layouting tables
+\usepackage{multicol}
+\usepackage{multirow}
+
+%extended aligning of tabular cells
+\usepackage{array}
+
+\newcolumntype{x}[1]{%
+>{\raggedleft\hspace{0pt}}p{#1}}%
+
+
+%----------------------------------------------------------------------------------------
+%	GRAPHICS DEFINITIONS
+%----------------------------------------------------------------------------------------
+
+%for header image
+\usepackage{graphicx}
+
+%for floating figures
+\usepackage{wrapfig}
+\usepackage{float}
+%\floatstyle{boxed}
+%\restylefloat{figure}
+
+%for drawing graphics
+\usepackage{tikz}
+\usetikzlibrary{shapes, backgrounds,mindmap, trees}
+
+
+%----------------------------------------------------------------------------------------
+%	Color DEFINITIONS
+%----------------------------------------------------------------------------------------
+\usepackage{transparent}
+\usepackage{color}
+
+% accent color
+\definecolor{complcol}{RGB}{250,150,10}
+
+% dark background color
+%\definecolor{bgcol}{RGB}{110,110,110}
+%\definecolor{bgcol}{RGB}{75,107,175}
+%\definecolor{bgcol}{RGB}{67,96,157}
+%\definecolor{bgcol}{RGB}{242,173,97}
+\definecolor{bgcol}{RGB}{221,112,75}
+
+% light background / accent color (text)
+%\definecolor{softcol}{RGB}{225,225,225}
+\definecolor{softcol}{RGB}{112,65,31}
+
+% den ljusare bakgrunden
+%\definecolor{sectcol}{RGB}{0,120,150}
+%\definecolor{sectcol}{RGB}{75,107,175}
+%\definecolor{sectcol}{RGB}{93,121,183}
+%\definecolor{sectcol}{RGB}{185,73,35}
+\definecolor{sectcol}{RGB}{185,73,35}
+
+%Package for links, must be the last package used
+\usepackage[hidelinks]{hyperref}
+%============================================================================%
+%
+%
+%	DEFINITIONS
+%
+%
+%============================================================================%
+
+% returns minipage width minus two times \fboxsep
+% to keep padding included in width calculations
+\newcommand{\mpwidth}{\linewidth-\fboxsep-\fboxsep}
+
+
+%----------------------------------------------------------------------------------------
+% 	ARROW GRAPHICS in Tikz
+%----------------------------------------------------------------------------------------
+
+% a six pointed arrow poiting to the left
+\newcommand{\tzlarrow}{(0,0) -- (0.2,0) -- (0.3,0.2) -- (0.2,0.4) -- (0,0.4) -- (0.1,0.2) -- cycle;}
+
+% include the left arrow into a tikz picture
+% param1: fill color
+%
+\newcommand{\larrow}[1]
+{\begin{tikzpicture}[scale=0.58]
+     \filldraw[fill=#1!100,draw=#1!100!black]  \tzlarrow
+ \end{tikzpicture}
+}
+
+% a six pointed arrow poiting to the right
+\newcommand{\tzrarrow}{ (0,0.2) -- (0.1,0) -- (0.3,0) -- (0.2,0.2) -- (0.3,0.4) -- (0.1,0.4) -- cycle;}
+
+% include the right arrow into a tikz picture
+% param1: fill color
+%
+\newcommand{\rarrow}
+{\begin{tikzpicture}[scale=0.7]
+    \filldraw[fill=sectcol!100,draw=sectcol!100!black] \tzrarrow
+ \end{tikzpicture}
+}
+
+%----------------------------------------------------------------------------------------
+%	custom sections
+%----------------------------------------------------------------------------------------
+
+% create a coloured box with arrow and title as cv section headline
+% param 1: section title
+%
+\newcommand{\cvsection}[1]
+{
+\colorbox{sectcol}{\mystrut \makebox[1\mpwidth][l]{
+\larrow{bgcol} \hspace{-8pt} \larrow{bgcol} \hspace{-8pt} \larrow{bgcol} \textbf{\textcolor{white}{\uppercase{#1}}}\hspace{4pt}
+}}\\
+}
+
+% create a coloured arrow with title as cv meta section section
+% param 1: meta section title
+%
+\newenvironment{metasection}[1] {
+    \vspace{6pt}
+    \begin{center}
+        \textcolor{white}{\large{\uppercase{#1}}}\\
+    \normalsize
+    \parbox{0.7\mpwidth}{\textcolor{white}	\hrule}
+}{\end{center}}
+
+%----------------------------------------------------------------------------------------
+%	 CV EVENT
+%----------------------------------------------------------------------------------------
+
+% creates a stretched box as cv entry headline followed by two paragraphs about
+% the work you did
+% param 1:	event time i.e. 2014 or 2011-2014 etc.
+% param 2:	event name (what did you do?)
+% param 3:	institution (where did you work / study)
+% param 4:	what was your position
+% param 5:	some words about your contributions
+%
+\newcommand{\cvevent}[5]
+{
+\vspace{8pt}
+    \begin{tabular*}{1\mpwidth}{p{0.55\mpwidth}  x{0.42\mpwidth}}
+     \textcolor{black}{\textbf{#2}} & \textcolor{complcol}{#3}, \textcolor{bgcol}{#1}
+
+    \end{tabular*}
+\vspace{-12pt}
+\textcolor{softcol}{\hrule}
+\vspace{6pt}
+    \begin{tabular*}{0.5\mpwidth}{p{\mpwidth}}
+%\larrow{softcol}  #4\\[3pt]
+%\larrow{softcol}  #5\\[6pt]
+#4
+    \end{tabular*}
+
+}
+
+% creates a stretched box as
+\newcommand{\cveventmeta}[2]
+{
+    \mbox{\mystrut \hspace{87pt}\textit{#1}}\\
+    #2
+}
+
+%----------------------------------------------------------------------------------------
+% CUSTOM STRUT FOR EMPTY BOXES
+%----------------------------------------- -----------------------------------------------
+\newcommand{\mystrut}{\rule[-.3\baselineskip]{0pt}{\baselineskip}}
+
+%----------------------------------------------------------------------------------------
+% CUSTOM LOREM IPSUM
+%----------------------------------------------------------------------------------------
+\newcommand{\lorem}
+{Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus.}
+
+
+% use to vertically center content
+% credits to: http://tex.stackexchange.com/questions/7219/how-to-vertically-center-two-images-next-to-each-other
+\newcommand{\vcenteredinclude}[1]{\begingroup
+\setbox0=\hbox{\includegraphics{#1}}%
+\parbox{\wd0}{\box0}\endgroup}
+
+% use to vertically center content
+% credits to: http://tex.stackexchange.com/questions/7219/how-to-vertically-center-two-images-next-to-each-other
+\newcommand*{\vcenteredhbox}[1]{\begingroup
+\setbox0=\hbox{#1}\parbox{\wd0}{\box0}\endgroup}
+
+%----------------------------------------------------------------------------------------
+%	ICON-SET EMBEDDING
+%----------------------------------------------------------------------------------------
+
+% at this point we simplify our icon-embedding by simply referring to a set of png images.
+% if you find a good way of including svg without conflicting with other packages you can
+% replace this part
+\newcommand{\icon}[3]{\makebox(#2, #2){\textcolor{#3}{\csname fa#1\endcsname}}}	%icon shortcut
+\newcommand{\icontext}[4]{ 						%icon with text shortcut
+    \vcenteredhbox{\icon{#1}{#2}{#4}} \vcenteredhbox{\textcolor{#4}{#3}}
+}
+\newcommand{\iconhref}[5]{ 						%icon with website url
+    \vcenteredhbox{\icon{#1}{#2}{#5}} \href{#4}{\textcolor{#5}{#3}}
+}
+
+\newcommand{\iconemail}[5]{ 						%icon with email link
+    \vcenteredhbox{\icon{#1}{#2}{#5}} \href{mailto:#4}{\textcolor{#5}{#3}}
+}
+
+
+
+%============================================================================%
+%
+%
+%
+%	DOCUMENT CONTENT
+%
+%
+%
+%============================================================================%
+\begin{document}
+\fcolorbox{white}{white}{\begin{minipage}[c][0.95\textheight][t]{0.69\linewidth}
+
+
+        %---------------------------------------------------------------------------------------
+        %	TITLE HEADLINE
+        %----------------------------------------------------------------------------------------
+        \vspace{-3pt}
+        % use this for multiple words like working titles etc.
+        %\hspace{-0.25\linewidth}\colorbox{bgcol}{\makebox[1.5\linewidth][c]{\hspace{46pt}\HUGE{\textcolor{white}{\uppercase{M.Sc. Jan Küster}} } \textcolor{sectcol}{\rule[-1mm]{1mm}{0.9cm}} \parbox[b]{5cm}{   \large{ \textcolor{white}{{IT Consultant}}}\\
+        % \large{ \textcolor{white}{{JS Fullstack Engineer}}}}
+        %}}
+
+        %\hspace{-0.25\linewidth}\colorbox{bgcol}{\makebox[1.5\linewidth][c]{\hspace{64pt}\Huge{\textcolor{white}{\uppercase{Albin A. Henriksson}} } \textcolor{sectcol}{\rule[-1mm]{1mm}{0.9cm}} \parbox[b]{5cm}{   \normalsize{ \textcolor{white}{{\texttt{sysadmin} \&\& \textbackslash}}}\\
+        %            \normalsize{ \textcolor{white}{{\texttt{cybersäkerhet} \&\& \textbackslash}}} \\
+        %            \normalsize{ \textcolor{white}{{\texttt{devops}}}}}
+        %    }}
+
+        % use this for single words, e.g. CV or RESUME etc.
+        \colorbox{bgcol}{\makebox[\mpwidth][c]{\HUGE{\textcolor{white}{\uppercase{Albin A. Henriksson}} } \textcolor{sectcol}{\rule[-1mm]{1mm}{0.9cm}} \HUGE{\textcolor{white}{\uppercase{CV}} } }}
+
+        %----------------------------------------------------------------------------------------
+        %	HEADER IMAGE
+        %----------------------------------------------------------------------------------------
+
+
+        %\hspace{-1.6cm}
+        %\includegraphics[trim= 0 250 0 270,clip,width=1\linewidth+3.1cm]{cv-profilbild.png}	%trimming relative to image size!
+        %\includegraphics[trim= 350 150 0 200, clip ,width=\linewidth]{albin.jpg}	%trimming relative to image size
+        \includegraphics[clip ,width=0.5\linewidth]{albin.jpg}
+
+        %---------------------------------------------------------------------------------------
+        %	SUMMARY
+        %----------------------------------------------------------------------------------------
+        %        \transparent{0.85}%
+        %\vspace{-130pt}
+        %        \vspace{-180pt}
+        %        \hspace{0.4\linewidth}
+        %        \colorbox{bgcol}{
+        %            \parbox{0.5\linewidth}{
+        %                \transparent{1}%
+        %                \begin{center}
+        %                    \larrow{sectcol}\larrow{sectcol}\textcolor{white}{Skånsk SysAdmin och Cyber Security/"DevOps" Engineer som gärna arbetar utanför boxen, för att sedan designa en bättre box.}
+        %                \end{center}
+        %            }
+        %       }
+        %        %\vspace{60pt}
+        %        \vspace{110pt}
+
+        %============================================================================%
+        %
+        %	CV SECTIONS AND EVENTS (MAIN CONTENT)
+        %
+        %============================================================================%
+
+        %---------------------------------------------------------------------------------------
+        %	STATUS
+        %----------------------------------------------------------------------------------------
+        \vspace{4pt}
+        
+        \cvsection{Summary}
+        Experienced and versatile IT Systems Specialist with a strong academic background in physics and mathematics. I bring over 15 years of hands-on experience working with Linux and Unix-based systems—ranging from personal servers to large-scale enterprise environments. My expertise spans systems administration, infrastructure engineering, cybersecurity, and DevOps methodologies. \\
+        
+        I excel at understanding complex systems holistically, identifying areas for optimization, and implementing secure and scalable solutions. My previous role as a science teacher has further honed my ability to communicate complex technical concepts clearly and effectively to diverse audiences.
+
+        \vspace{4pt}        %---------------------------------------------------------------------------------------
+        %	EXPERIENCE
+        %---------------------------------------------------------------------------------------
+        \cvsection{Experience}
+        %---------------------------------------------------------------------------------------
+        \cvevent{Current}{IT Technician / Systems Administrator}{\href{https://malmo.se}{Malmö stad}}{\textit{Public sector IT department.} - Supporting and maintaining IT infrastructure in a municipal environment. Managing user accounts, endpoints, networks, and services across offices. Coordinating with internal stakeholders and external vendors. Scripting and automating routine administrative tasks. Ensuring compliance with public sector IT security standards}
+        
+        \cvevent{Oct 21-Jun 22}{IT Systems Specialist}{\href{https://storvix.eu}{STORViX AB}}{\textit{STORViX builds data storage hardware and develops a proprietary software stack and a UNIX-based OS.} Solutions engineering, infrastructure design and implementation. Advanced networking, SANs, network monitoring. System administration and security (vulnerability assessment, hardening, IDS/IPS, incident response). On-site data center operations abroad. Thesis supervisor in machine learning (undergraduate level)}
+
+        % KANSKE SKA HA MED(?):
+        % (backed by \textit{Oracle for Startups} and \textit{Sony Startup Acceleration Program})
+        
+        %\textcolor{softcol}{\hrule}
+        \cvevent{Oct 20-Jun 21}{Sysadmin, DevOps {\&} Cybersecurity Engineer}{\href{https://timetjek.com}{Timetjek AB}}{\textit{HRMS company.} Redesigned IT infrastructure: migrated from a monolithic Windows server to a secure, containerized Linux/BSD VM architecture. Implemented CI/CD workflows to streamline deployments. Enhanced in-office collaboration and workflows}
+
+        %\textcolor{softcol}{\hrule}
+        \cvevent{Dec 15-Jun 16}{Science Teacher}{\href{https://vellinge.se/sandeplanskolan}{Sandeplanskolan}}{\textit{Public elementary school.} Full-time teacher in science and technology for grades 7-9.}
+
+        %\textcolor{softcol}{\hrule}
+        \cvevent{Jun 13-Nov 15}{IT Consultant, Computer/Network Technician}{Self-employed}{\textit{Sole proprietorship.} Built, repaired and serviced servers and networks for small businesses.}
+
+        %\textcolor{softcol}{\hrule}
+
+        \vspace{4pt}
+        %---------------------------------------------------------------------------------------
+        %	EDUCATION SECTION
+        %---------------------------------------------------------------------------------------
+        \cvsection{Education}
+        %\textcolor{softcol}{\hrule}
+
+        %
+        \cvevent{17-19}{Mathematics and Computer Science}{University of Copenhagen}{}
+        %\textcolor{softcol}{\hrule}
+
+        %
+        \cvevent{12-15}{Bachelor's Programme in Physics}{Uppsala University}{}
+        %\textcolor{softcol}{\hrule}
+
+        %
+        %\cvevent{11-11}{Engineering Physics}{LTH, Lund University}{}
+        %\textcolor{softcol}{\hrule}
+
+
+    \end{minipage}}%
+\fcolorbox{white}{sectcol}{\begin{minipage}[c][0.95\textheight][t]{0.33\linewidth}
+
+
+        \begin{metasection}{Contact}
+
+            \icontext{MapMarker}{12}{Malmö, Sweden}{white}\\[6pt]
+            \icontext{MobilePhone}{12}{(+46) 76-937 63 73}{white}\\[6pt]
+            \iconemail{Send}{12}{albin@ahenriksson.com}{albin@ahenriksson.com}{white}\\[6pt]
+            \iconhref{MousePointer}{12}{https://ahenriksson.com}{ahenriksson.com}{white}\\[6pt]
+            \iconhref{Github}{12}{https://github.com/albinhenriksson}{https://github.com/albinhenriksson}{white}\\[6pt]
+
+        \end{metasection}
+
+        %----------------------------------------------------------------------------------------
+        %	META SECTION
+        %----------------------------------------------------------------------------------------
+
+%        \begin{metasection}{Meta}
+%
+%            \icontext{Code}{12}{Problem solving}{white}\\
+%            \icon{Star}{12}{complcol}\icon{Star}{12}{complcol}\icon{Star}{12}{complcol}\icon{Star}{12}{complcol}\icon{Star}{12}{complcol}\icon{Star}{12}{complcol}\icon{Star}{12}{complcol}\icon{Star}{12}{complcol}\icon{Star}{12}{complcol}\icon{Star}{12}{complcol}\\[6pt]
+
+%           \icontext{CommentsO}{12}{Communication}{white}\\
+%            \icon{Star}{12}{complcol}\icon{Star}{12}{complcol}\icon{Star}{12}{complcol}\icon{Star}{12}{complcol}\icon{Star}{12}{complcol}\icon{Star}{12}{complcol}\icon{Star}{12}{complcol}\icon{Star}{12}{complcol}\icon{Star}{12}{complcol}\icon{Star}{12}{complcol}\\[6pt]
+
+
+%            \icontext{CodeFork}{12}{Coding/Scripting}{white}\\
+%            \icon{Star}{12}{complcol}\icon{Star}{12}{complcol}\icon{Star}{12}{complcol}\icon{Star}{12}{complcol}\icon{Star}{12}{complcol}\icon{Star}{12}{complcol}\icon{Star}{12}{complcol}\icon{Star}{12}{complcol}\icon{Star}{12}{white}\icon{Star}{12}{white}\\[6pt]
+
+%        \end{metasection}
+
+
+        \begin{metasection}{Tech}
+
+            \textcolor{white}{
+                \icontext{Linux}{12}{Linux/BSD/Solaris}{white} \\[6pt]
+                \icontext{Windows}{12}{Windows Server}{white} \\[6pt]
+                \icontext{Server}{12}{VMware, Proxmox}{white} \\[6pt]
+                \icontext{Database}{12}{ZFS}{white} \\[6pt]
+                \icontext{Database}{12}{SQL}{white} \\[6pt]
+                \icontext{Code}{12}{Bash, Z shell, PowerShell}{white} \\[6pt]
+                \icontext{Code}{12}{C(++)}{white} \\
+                [6pt]
+                \icontext{Code}{12}{Python}{white} \\[6pt]
+                \icontext{Code}{12}{Java}{white} \\[6pt]
+                \icontext{Code}{12}{Rust}{white} \\[6pt]
+                \icontext{Code}{12}{F\#}{white} \\[6pt]
+                \icontext{Code}{12}{MATLAB}{white} \\[6pt]
+                \icontext{Code}{12}{LaTeX}{white} \\[6pt]
+                \icontext{CodeFork}{12}{Git}{white} \\[6pt]
+                \icontext{Book}{12}{Man Pages}{white} \\[6pt]
+            }
+        \end{metasection}
+
+        \begin{metasection}{Tools}
+
+    \textcolor{white}{
+        \icontext{terminal}{12}{Terminal}{white}
+        \icontext{git}{12}{Git}{white}
+        \icontext{docker}{12}{Docker}{white}
+        \icontext{cogs}{12}{Kubernetes}{white}
+        \icontext{project-diagram}{12}{CI/CD Pipelines}{white}
+        \icontext{chart-line}{12}{Monitoring Tools}{white}
+    }
+
+\end{metasection}
+
+        \begin{metasection}{Hobbies}
+
+            \textcolor{white}{\LARGE{\icon{Gamepad}{24}{white} \icon{Beer}{24}{white} \icon{Headphones}{24}{white}  \icon{Bicycle}{24}{white}}}
+        \end{metasection}
+
+        %---------------------------------------------------------------------------------------
+        %	QR CODE (optional)
+        %----------------------------------------------------------------------------------------
+
+        \vspace{12pt}
+        \begin{center}
+            \includegraphics[width=0.35\mpwidth]{qr-kod-linkedin}
+        \end{center}
+
+    \end{minipage}}
+
+%-------------------------------------------------------------------------------------------------
+%	ARTIFICIAL FOOTER (fancy footer cannot exceed linewidth)
+%--------------------------------------------------------------------------------------------------
+
+\null
+\vspace*{\fill}
+%\hspace{-0.25\linewidth}\colorbox{bgcol}{\makebox[1.5\linewidth][c]{\mystrut \small \textcolor{white}{CV} $\cdot$ \textcolor{white}{Albin A. Henriksson} \textcolor{white}{$\cdot$} \textcolor{white}{albin@ahenriksson.com} $\cdot$ \textcolor{white}{(\LaTeX, compiled \today)}}} \\[-6pt]
+
+\hspace{-0.25\linewidth}\colorbox{bgcol}{\makebox[1.5\linewidth][c]{\mystrut \small \textcolor{white}{CV $\cdot$ Albin A. Henriksson $\cdot$ albin@ahenriksson.com $\cdot$ (\LaTeX, compiled \today)}}} \\[-6pt]
+
+%============================================================================%
+%
+%
+%
+%	DOCUMENT END
+%
+%
+%
+%============================================================================%
+\end{document}

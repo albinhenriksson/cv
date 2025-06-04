@@ -12,6 +12,7 @@ I'm currently working in the public sector at Malmö stad with IT infrastructure
 
 - `cv_albin_henriksson.md` – Source CV in Markdown
 - `cv_albin_henriksson.pdf` – PDF version, ready to send
+- (Optional) `LaTeX/` – If you want the fancy-pants LaTeX version, see this folder
 
 ## 🛠️ Tech Skills Highlight
 
